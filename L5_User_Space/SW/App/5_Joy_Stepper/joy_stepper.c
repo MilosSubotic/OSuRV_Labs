@@ -92,7 +92,7 @@ void* js_reader(void* arg) {
 
 int gpio_write(int fd, uint8_t pin, uint8_t value) {
 	uint8_t pkg[3];
-	pkg[0] = GPIO_CTRL__WRITE;
+	pkg[0] = 'w';
 	pkg[1] = pin;
 	pkg[2] = value;
 	

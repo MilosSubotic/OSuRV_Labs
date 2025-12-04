@@ -121,7 +121,7 @@ int main(int argc, char** argv){
 	}
 
 	if(op == 'w'){
-	    if(wr_val != 0 && wr_val != 1){
+		if(wr_val != 0 && wr_val != 1){
 			printf("ERROR: wr_val must be 0 or 1\n");
 			return 6;
 		}
@@ -152,7 +152,7 @@ int main(int argc, char** argv){
 	}else if(op == 'r'){
 		uint8_t pkg[2];
 		pkg[0] = 'r';
-        pkg[1] = gpio_no;
+		pkg[1] = gpio_no;
 
 		r = write(fd, pkg, sizeof(pkg));
 		if(r != sizeof(pkg)){
@@ -162,7 +162,7 @@ int main(int argc, char** argv){
 
 		uint8_t rd_val;
 		r = read(fd, (char*)&rd_val, sizeof(rd_val));
-        if(r != sizeof(rd_val)){
+		if(r != sizeof(rd_val)){
 			fprintf(stderr, "ERROR: read went wrong!\n");
 			return 5;
 		}
@@ -184,7 +184,7 @@ int main(int argc, char** argv){
 
 		uint8_t rd_val;
 		r = read(fd, (char*)&rd_val, sizeof(rd_val));
-        if(r != sizeof(rd_val)){
+		if(r != sizeof(rd_val)){
 			fprintf(stderr, "ERROR: read went wrong!\n");
 			return 5;
 		}
