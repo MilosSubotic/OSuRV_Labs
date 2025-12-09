@@ -42,7 +42,7 @@ int main() {
 	while (1) {
 		//TODO Spin stepper
 
-		usleep(10000); 
+		usleep(1000); 
 	}
 
 	printf("Exiting...\n");
