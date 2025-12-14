@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+# encoding: utf-8
+
+'''
+@author: Milos Subotic <milos.subotic.sm@gmail.com>
+@license: MIT
+
+'''
+
+###############################################################################
+
+import os
+import sys
+
+import glob
+import waflib
+
+###############################################################################
+
+one_file_programs = [
+	'test_gpio.c'
+]
+
+def options(opt):
+	opt.load('gcc gxx')
+
+	opt.add_option(
+		'--app',
+		dest = 'app',
+		default = None,
+		help = 'App to be run'
+	)
+
+def configure(cfg):
+	cfg.load('gcc gxx')
+
+	cfg.env.append_value('CXXFLAGS', '-std=c++11')
+	#cfg.env.append_value('LIB', 'pthread')
+	cfg.env.append_value('CXXFLAGS', '-g -rdynamic'.split()) # For debug.
+
+	gpio_ctrl_driver = cfg.srcnode.find_node(
+		'../../Driver/gpio_ctrl/'
+	)
+	cfg.check(
+		uselib_store = 'gpio_ctrl_driver',
+		msg = "Checking for stuff from 'gpio_ctrl' driver",
+		header_name = 'gpio_ctrl.h',
+		includes = str(gpio_ctrl_driver.find_node('include')),
+		features = 'cxx cxxprogram',
+		mandatory = True
+	)
+
+def build(bld):
+	for s in one_file_programs:
+		p, ext = os.path.splitext(s)
+		bld.program(
+			target = p,
+			source = s,
+			use = 'gpio_ctrl_driver',
+			install_path = False
+		)
+
+###############################################################################
+
+def exec_command2(self, cmd, **kw):
+	# Log output while running command.
+	kw['stdout'] = None
+	kw['stderr'] = None
+	ret = self.exec_command(cmd, **kw)
+	if ret != 0:
+		self.fatal('Command "{}" returned {}'.format(cmd, ret))
+setattr(waflib.Context.Context, 'exec_command2', exec_command2)
+
+###############################################################################
