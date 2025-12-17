@@ -2,8 +2,6 @@
 DRV_NAME := gpio_ctrl
 
 DEV_MAJOR := 261
-DEV_STREAM_NAME := gpio_stream
-DEV_MMAP_NAME := gpio_mmap
 
 TARGET := $(DRV_NAME).ko
 
@@ -42,18 +40,12 @@ check_is_major_free:
 		exit 1; \
 	fi
 
-
-DEV_STREAM_FN := /dev/$(DEV_STREAM_NAME)
-DEV_MMAP_FN := /dev/$(DEV_MMAP_NAME)
 .PHONY: start
 start:
 	sudo insmod $(TARGET)
-	sudo rm -f $(DEV_STREAM_FN)
-	sudo mknod $(DEV_STREAM_FN) c $(DEV_MAJOR) 0
-	sudo chmod a+rw $(DEV_STREAM_FN)
-	sudo rm -f $(DEV_MMAP_FN)
-	sudo mknod $(DEV_MMAP_FN) c $(DEV_MAJOR) 1
-	sudo chmod a+rw $(DEV_MMAP_FN)
+	sudo rm -f /dev/gpio_stream
+	sudo mknod /dev/gpio_stream c $(DEV_MAJOR) 0
+	sudo chmod a+rw /dev/gpio_stream
 	
 .PHONY: stop
 stop:

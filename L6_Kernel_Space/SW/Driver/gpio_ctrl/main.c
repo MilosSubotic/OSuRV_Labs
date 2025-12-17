@@ -171,7 +171,7 @@ static struct file_operations gpio_stream_fops = {
 void gpio_ctrl_exit(void) {
 	gpio__exit();
 
-	unregister_chrdev(DEV_MAJOR, DEV_STREAM_NAME);
+	unregister_chrdev(DEV_MAJOR, "gpio_stream");
 
 	printk(KERN_INFO DRV_NAME": Module removed.\n");
 }
@@ -181,7 +181,7 @@ int gpio_ctrl_init(void) {
 
 	printk(KERN_INFO DRV_NAME": Inserting module...\n");
 
-	r = register_chrdev(DEV_MAJOR, DEV_STREAM_NAME, &gpio_stream_fops);
+	r = register_chrdev(DEV_MAJOR, "gpio_stream", &gpio_stream_fops);
 	if(r < 0){
 		printk(KERN_ERR DRV_NAME": cannot obtain major number %d!\n", DEV_MAJOR);
 		goto exit;
