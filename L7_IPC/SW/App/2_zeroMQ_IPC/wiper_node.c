@@ -70,17 +70,20 @@ int main() {
 
 			print_buttons("wiper_node recv buttons");
 
-			if(buttons[BUTTON_CW]){
-				gpio_write(gpio_fd, 3, 0); // CW
-				gpio_write(gpio_fd, 4, 1); // CW
-				gpio_write(gpio_fd, 2, 1); // EN = 1
-			}
 			if(buttons[BUTTON_CCW]){
+				printf("CCW\n");
 				gpio_write(gpio_fd, 3, 1); // CCW
 				gpio_write(gpio_fd, 4, 0); // CCW
 				gpio_write(gpio_fd, 2, 1); // EN = 1
 			}
+			if(buttons[BUTTON_CW]){
+				printf("CW\n");
+				gpio_write(gpio_fd, 3, 0); // CW
+				gpio_write(gpio_fd, 4, 1); // CW
+				gpio_write(gpio_fd, 2, 1); // EN = 1
+			}
 			if(buttons[BUTTON_STOP]){
+				printf("STOP\n");
 				gpio_write(gpio_fd, 2, 0); // EN = 0
 			}
 		}
