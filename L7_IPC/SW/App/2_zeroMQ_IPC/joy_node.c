@@ -50,18 +50,12 @@ int main() {
 		return 1;
 	}
 
-
 	while(1){
 		struct js_event js_event_data;
 
 		if(read(js_fd, &js_event_data, sizeof(struct js_event)) != sizeof(struct js_event)){
 			perror("Error reading joystick event");
 			break;
-		}
-
-		// Initialize buttons to 0
-		for(int i = 0; i < N_BUTTONS; i++){
-			buttons[i] = 0;
 		}
 
 		if(js_event_data.type & JS_EVENT_BUTTON){
