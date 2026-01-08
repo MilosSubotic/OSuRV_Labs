@@ -26,9 +26,6 @@ int gpio_write(int fd, uint8_t pin, uint8_t value) {
 	return 0;
 }
 
-
-bool rot_en = false;
-
 void joy__cb(const sensor_msgs::msg::Joy::SharedPtr joy_msg) {
 	if(joy_msg->buttons[BUTTON_CW]){
 		RCLCPP_INFO_STREAM(node->get_logger(), "CW");

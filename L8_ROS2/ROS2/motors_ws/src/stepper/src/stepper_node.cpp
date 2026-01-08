@@ -74,7 +74,7 @@ int main(int argc, char * argv[]) {
 			gpio_write(gpio_fd, 23, step == 3);
 			rclcpp::sleep_for(std::chrono::milliseconds(3));
 
-			step = (step + rot_dir) & 0x3;
+			step = (step + rot_dir) % 4;
 		}
 
 		rclcpp::spin_some(node);
