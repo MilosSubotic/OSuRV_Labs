@@ -2,8 +2,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/joy.hpp"
 
-#include <chrono>
-
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -64,7 +62,7 @@ int main(int argc, char * argv[]) {
 		return EXIT_FAILURE;
 	}
 
-	int step = 0;
+	uint step = 0;
 	// Rotate motor.
 	while(rclcpp::ok()){
 		if(rot_en){
